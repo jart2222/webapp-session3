@@ -18,6 +18,7 @@ public class AplicacionListener implements ServletContextListener,
         sce.getServletContext().log("inicializando la aplicacion!");
         servletContext = sce.getServletContext();
         servletContext.setAttribute("mensaje", "algun valor global de la app!");
+
     }
 
     @Override
@@ -29,6 +30,8 @@ public class AplicacionListener implements ServletContextListener,
     public void requestInitialized(ServletRequestEvent sre) {
         servletContext.log("inicializando el request!");
         sre.getServletRequest().setAttribute("mensaje", "guardando algun valor para el request");
+        sre.getServletRequest().setAttribute("title", "Catalogo Servlet");
+
     }
 
     @Override
