@@ -6,7 +6,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.aguzman.apiservlet.webapp.headers.models.Producto;
 import org.aguzman.apiservlet.webapp.headers.services.ServiceJdbcException;
 import org.aguzman.apiservlet.webapp.headers.util.ConexionBaseDatos;
+import org.aguzman.apiservlet.webapp.headers.util.ConexionBaseDatosDS;
 
+import javax.naming.NamingException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -17,7 +19,7 @@ import java.util.Optional;
 public class ConexionFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        try(Connection conn= ConexionBaseDatos.getConnection()) {
+        try(Connection conn= ConexionBaseDatosDS.getConnection()) {
             if (conn.getAutoCommit()){
                 conn.setAutoCommit(false);
             }
@@ -32,7 +34,7 @@ public class ConexionFilter implements Filter {
                 e.printStackTrace();
             }
 
-        } catch (SQLException | ServiceJdbcException e) {
+        } catch (SQLException | NamingException e) {
             e.printStackTrace();
         }
     }
