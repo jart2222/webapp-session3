@@ -1,5 +1,6 @@
 package org.aguzman.apiservlet.webapp.headers.controllers;
 
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,10 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.aguzman.apiservlet.webapp.headers.models.Categoria;
 import org.aguzman.apiservlet.webapp.headers.models.Producto;
 import org.aguzman.apiservlet.webapp.headers.services.ProductoService;
-import org.aguzman.apiservlet.webapp.headers.services.ProductoServiceJdbcImpl;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,10 +20,11 @@ import java.util.Optional;
 
 @WebServlet("/productos/form")
 public class ProductoFormServlet extends HttpServlet {
+    @Inject
+    private ProductoService service;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Connection conn=(Connection) req.getAttribute("conn");
-        ProductoService service= new ProductoServiceJdbcImpl(conn);
         long id;
         try {
             id= Long.parseLong(req.getParameter("id"));
@@ -48,8 +48,6 @@ public class ProductoFormServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Connection conn=(Connection) req.getAttribute("conn");
-        ProductoService service= new ProductoServiceJdbcImpl(conn);
         String nombre=req.getParameter("nombre");
 
         Integer precio;

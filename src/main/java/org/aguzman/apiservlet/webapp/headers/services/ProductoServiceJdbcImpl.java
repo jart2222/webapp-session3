@@ -1,26 +1,22 @@
 package org.aguzman.apiservlet.webapp.headers.services;
 
-import org.aguzman.apiservlet.webapp.headers.models.Carro;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.aguzman.apiservlet.webapp.headers.models.Categoria;
 import org.aguzman.apiservlet.webapp.headers.models.Producto;
-import org.aguzman.apiservlet.webapp.headers.repositories.CategoriaRepositoryImpl;
-import org.aguzman.apiservlet.webapp.headers.repositories.ProductoRepositoryJdbcImpl;
 import org.aguzman.apiservlet.webapp.headers.repositories.Repository;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+@ApplicationScoped
 public class ProductoServiceJdbcImpl implements ProductoService{
+    @Inject
     private Repository<Producto> repositoryJdbc;
+    @Inject
     private Repository<Categoria> repositoryCategoriaJdbc;
 
-
-    public ProductoServiceJdbcImpl(Connection connection) {
-        this.repositoryJdbc = new ProductoRepositoryJdbcImpl(connection);
-        this.repositoryCategoriaJdbc=new CategoriaRepositoryImpl(connection);
-    }
 
     @Override
     public List<Producto> listar() {
