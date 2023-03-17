@@ -3,6 +3,7 @@ package org.aguzman.apiservlet.webapp.headers.repositories;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import org.aguzman.apiservlet.webapp.headers.configs.MysqlConn;
 import org.aguzman.apiservlet.webapp.headers.models.Usuario;
 
 import java.sql.Connection;
@@ -14,7 +15,7 @@ import java.util.List;
 @ApplicationScoped
 public class UsuarioRepositoryImpl implements UsuarioRepository{
     @Inject
-    @Named("conn")
+    @MysqlConn
     private Connection conn;
 
 

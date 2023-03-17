@@ -1,13 +1,12 @@
 package org.aguzman.apiservlet.webapp.headers.services;
 
-import jakarta.enterprise.inject.Alternative;
 import org.aguzman.apiservlet.webapp.headers.models.Categoria;
 import org.aguzman.apiservlet.webapp.headers.models.Producto;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-@Alternative
+//@Alternative
 public class ProductoServiceImpl implements ProductoService{
     @Override
     public List<Producto> listar() {

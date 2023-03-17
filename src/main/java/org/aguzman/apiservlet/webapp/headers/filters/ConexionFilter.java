@@ -5,6 +5,7 @@ import jakarta.inject.Named;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletResponse;
+import org.aguzman.apiservlet.webapp.headers.configs.MysqlConn;
 import org.aguzman.apiservlet.webapp.headers.models.Producto;
 import org.aguzman.apiservlet.webapp.headers.services.ServiceJdbcException;
 import org.aguzman.apiservlet.webapp.headers.util.ConexionBaseDatos;
@@ -20,7 +21,7 @@ import java.util.Optional;
 @WebFilter("/*")
 public class ConexionFilter implements Filter {
     @Inject
-    @Named("conn")
+    @MysqlConn
     private Connection conn;
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
