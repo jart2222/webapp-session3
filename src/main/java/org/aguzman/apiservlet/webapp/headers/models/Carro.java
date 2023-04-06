@@ -1,23 +1,34 @@
 package org.aguzman.apiservlet.webapp.headers.models;
 
-import jakarta.enterprise.context.SessionScoped;
-import jakarta.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Inject;
+import org.aguzman.apiservlet.webapp.headers.configs.CarroCompra;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
-@SessionScoped
-@Named
+@CarroCompra
 //para inyeccion de dependencias es buena practica tener un constructor vacio
 public class Carro implements Serializable {
     private List<ItemCarro> items;
 
-    public Carro() {
+    /*Se pone transient cuando el contexto es  sesionScope o se ocupa Serializable */
+    @Inject
+    private transient Logger log;
+    @PostConstruct
+    public void inicializar (){
         this.items = new ArrayList<>();
+        log.info("Inicializando el carro de compras!");
     }
 
+    @PreDestroy
+    public void destruir (){
+        log.info("Destruyendo el carro de compras!");
+    }
     public void addItemCarro(ItemCarro itemCarro) {
         if (items.contains(itemCarro)) {
             Optional<ItemCarro> optionalItemCarro = items.stream()
